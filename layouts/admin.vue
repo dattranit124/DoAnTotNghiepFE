@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="p-3 d-flex justify-content-between">
+    <header class="p-3 d-flex justify-content-between shadow-sm">
       <div><b>Admin</b></div>
       <div class="me-2 me-md-0">
         <div class="dropdown d-inline-block me-2 me-md-0">
@@ -36,32 +36,31 @@
           ></button>
         </div>
         <!-- Lưu danh sách các navigator -->
-        <ul>
-          <li v-for="(nav, iNav) in navigations" :key="iNav">
-            <nuxt-link :to="navigations.slug">{{ navigations.name }}</nuxt-link>
+        <ul class="nav flex-column">
+          <li class="nav-item" v-for="(nav, iNav) in navigations" :key="iNav">
+            <nuxt-link :to="'/admin/' + nav.slug" class="nav-link">{{
+              nav.name
+            }}</nuxt-link>
           </li>
-          <!-- <li>
-            <nuxt-link to="">order</nuxt-link>
-          </li> -->
         </ul>
       </aside>
-      <main class="container-fluid">main</main>
+      <main class="container-fluid"><Nuxt /></main>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  layout: "empty",
+  //   layout: "empty",
   data() {
     return {
       navigations: [
-        { name: "Collection", slug: "collection" },
-        { name: "Orders", slug: "order" },
-        { name: "Notification", slug: "notification" },
-        { name: "Page ", slug: "Page" },
+        { name: "Collection", slug: "collections" },
+        { name: "Orders", slug: "orders" },
+        { name: "Notification", slug: "notifications" },
+        { name: "Page ", slug: "pages" },
         { name: "Customers ", slug: "customers" },
-        { name: "Product ", slug: "product" },
+        { name: "Product ", slug: "products" },
       ],
     };
   },
@@ -80,12 +79,12 @@ export default {
 
 aside {
   width: 300px;
-  background-color: aquamarine;
+  background-color: rgb(228, 228, 228);
   height: calc(100vh - 52px);
 }
 
 main {
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 
 .side-bar-toggle {
@@ -103,7 +102,8 @@ main {
 
   aside {
     position: absolute;
-    left: -100%;
+    right: 100%;
+    z-index: 999;
     /* transition: all 0.3s ease-in !important; */
   }
 }
