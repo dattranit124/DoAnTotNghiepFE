@@ -9,7 +9,7 @@
         Những sản phẩm mới nhất đang được cập nhật liên tục trên Website của
         Thúy Hằng Store
       </p>
-      <button class="btn btn-dark mt-md-5 px-5 py-3">MUA NGAY</button>
+      <button class="btn btn-dark mt-md-5 px-5 py-3" @click="$router.push('/product')">MUA NGAY</button>
     </div>
     <div class="w-auto">
       <img

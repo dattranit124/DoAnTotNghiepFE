@@ -1,12 +1,11 @@
 <template>
-  <div>
+	<div>
     <Layout-Header />
     <div class="d-flex my-5 wrapper">
 		<div>
-		  <Modules-Online-Product-Category />
 		  <Modules-Online-Product-List-New />
 		</div>
-		<Nuxt />
+		<Nuxt/>
 	</div>
     <Layout-Move-To-Top />
     <Layout-Footer />
@@ -14,7 +13,9 @@
 </template>
 <script>
 export default {
-
-};
+	
+}
 </script>
-<style></style>
+<style>
+	
+</style>

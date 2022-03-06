@@ -29,7 +29,8 @@
                 type="email"
                 id="form1Example13"
                 class="form-control form-control-lg"
-                placeholder="Email hoặc số điện thoại"
+                placeholder="Tên đăng nhập"
+                v-model="login_info.username"
               />
             </div>
 
@@ -41,22 +42,21 @@
                 id="form1Example23"
                 class="form-control form-control-lg"
                 placeholder="Mật khẩu"
+                v-model="login_info.password"
               />
             </div>
 
             <div class="mb-4">
               <!-- Checkbox -->
-              <div class="form-check"></div>
-              <button class="btn">Quên mật khẩu?</button>
             </div>
 
             <!-- Submit button -->
             <div class="d-flex justify-content-evenly">
-              <button  class="btn btn-primary btn-lg btn-block">
+              <button class="btn btn-primary btn-lg" @click="login">
                 Đăng nhập
               </button>
               <nuxt-link to="/signup"
-                ><button  class="btn btn-secondary btn-lg btn-block">
+                ><button class="btn btn-secondary btn-lg">
                   Đăng ký
                 </button></nuxt-link
               >
@@ -69,7 +69,39 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      login_info: {
+        username: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        var user = await this.$auth.loginWith("local", {
+          data: this.login_info,
+        });
+        if (user.data.isSuccess) {
+          this.$toast.success("Đăng nhập thành công");
+          if (this.$auth.loggedIn) {
+            if (this.$auth.user.Role == "admin") {
+              this.$router.push("/admin");
+            }
+          }
+        } else {
+          this.$toast.error(user.data.msg_error);
+        }
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    },
+  },
   layout: "empty",
+  head: {
+    title: "Đăng nhập - Cửa hàng Thúy Hằng",
+  },
 };
 </script>
 <style></style>

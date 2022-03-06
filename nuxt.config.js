@@ -25,18 +25,55 @@ export default {
         rel: "stylesheet",
         href: "/assets/css/style.css",
       },
-      {
-        rel: "stylesheet",
-        href: "/assets/css/sb-admin-2.min.css",
-      },
     ],
     script: [
       { src: "/assets/js/bootstrap.bundle.min.js" },
-      { src: "/assets/js/jquery/jquery.min.js" },
-      // { src: "/assets/js/sb-admin-2.min.js" },
-      // { src: "/assets/jquery-easing/sb-admin-2.min.js" },
-      // { src: "/assets/jquery-easing/jquery.easing.min.js" },
     ],
+  },
+  axios: {
+    baseURL: process.env.API_URL || "https://localhost:44316/api/v1"
+  },
+  auth: {
+    localStorage: false,
+    // cookie: false,
+    redirect: {
+      login: "/login",
+    },
+    strategies: {
+      local: {
+        // scheme: 'refresh',
+        token: {
+          property: "access_token",
+          global: true,
+          require: true,
+          type: "Bearer",
+          maxAge: 64000
+        },
+        user: {
+          property: false
+          // autoFetch: true
+        },
+        endpoints: {
+          // tokenRequired: true,
+          //--1. Đăng nhập
+          login: {
+            url: "/Account/auth",
+            method: "post"
+          },
+          //--2. Lấy thông tin nếu đăng nhập thành công
+          user: {
+            url: "/Customer/me",
+            method: "get"
+            // property: false
+          },
+          //--3. Đăng xuất
+          logout: {
+            url: "/users/logout",
+            method: "post"
+          }
+        }
+      }
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -52,8 +89,33 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    // https://go.nuxtjs.dev/axios
+    "@nuxtjs/axios",
+    '@nuxtjs/auth-next',
+    '@nuxtjs/toast',
+    "vue2-editor/nuxt"
+
+  ],
+  //--Cấu hình toast mặc định
+  toast: {
+    position: "top-right",
+    duration: 5000,
+    register: [
+      // Register custom toasts
+      {
+        name: "my-error",
+        message: "Oops...Something went wrong",
+        options: {
+          type: "error"
+        }
+      }
+    ]
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+   server: {
+    port: "8080"
+  }
 };

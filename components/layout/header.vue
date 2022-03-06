@@ -14,18 +14,32 @@
       <form class="d-flex align-items-center">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-        <i class="fas fa-shopping-cart fs-3 ps-5" role="button"></i>
+        <div class="position-relative" @click="$router.push('/order')">
+        <i class="fas fa-shopping-cart fs-3 ms-5 " role="button"></i>
+          <span v-if="countItem>0" class="position-absolute top-0 end-1 fs-5 px-1 text-white rounded-circle bg-danger translate-middle ">{{countItem}}</span>
+        </div>
       </form>
-      <div class="ms-md-3">
+      <div v-if="!$auth.loggedIn"  class="ms-md-3" >
         <nuxt-link to="/login"><button class="btn btn-light">Đăng nhập</button></nuxt-link>
         <nuxt-link to="/signup"><button class="btn btn-light">Đăng ký</button></nuxt-link>
       </div>
+      <div  v-else class="ms-md-3" >
+        <button class="btn btn-light">{{$auth.user.FirstName + ' ' + $auth.user.LastName}}</button>
+        <nuxt-link to="/login"><button class="btn btn-light">Đăng xuất</button></nuxt-link>
+      </div>
+      
     </div>
   </div>
 </nav>
 </template>
 <script>
+import { mapGetters} from 'vuex'
 export default {
+  created () {
+  },
+  computed : {
+      ...mapGetters('cart',['countItem']),
+  },
   data () {
     return {
       objHeader : [
