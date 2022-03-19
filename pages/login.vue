@@ -69,6 +69,8 @@
 </template>
 <script>
 export default {
+  created () {
+  },
   data() {
     return {
       login_info: {

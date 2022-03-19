@@ -11,7 +11,8 @@
       </button>
     </div>
     <div v-else class="row wrapper mt-5">
-      <div class="col-12 col-xl-8 my-2">
+      <div v-if="$auth.user==null">Bạn phải đăng nhập để đặt hàng</div>
+      <div v-else class="col-12 col-xl-8 my-2">
         <div class="row border-bottom border-3 mx-1 pb-2">
           <div class="col-5 fw-bold">SẢN PHẨM</div>
           <div class="col-3 fw-bold text-center">GIÁ</div>
@@ -83,7 +84,7 @@ export default {
     return {
       objOrder : {
         CustomerOrder : {
-          CustomerName : this.$auth.user.FirstName + ' ' + this.$auth.user.LastName ?? "",
+          CustomerName : this.$auth.user.FirstName ?? "" + ' ' + this.$auth.user.LastName ?? "",
           EmailCustomer : this.$auth.user.Account.Username ?? "",
           AddressCustomer :this.$auth.user.Address ?? "",
           PhoneCustomer : this.$auth.user.PhoneNumber ?? ""
