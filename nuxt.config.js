@@ -38,6 +38,9 @@ export default {
     // cookie: false,
     redirect: {
       login: "/login",
+      logout: '/login',
+      callback: '/login',
+      home: "/admin"
     },
     strategies: {
       local: {
@@ -63,7 +66,8 @@ export default {
           //--2. Lấy thông tin nếu đăng nhập thành công
           user: {
             url: "/Customer/me",
-            method: "get"
+            method: "get",
+            // propertyName: null
             // property: false
           },
           //--3. Đăng xuất
@@ -71,7 +75,10 @@ export default {
             url: "/users/logout",
             method: "post"
           }
-        }
+        },
+        // router: {
+        //   middleware: "router"
+        // },
       }
     }
   },

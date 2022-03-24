@@ -19,14 +19,14 @@
           />
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <form>
+          <form @submit.prevent="login">
             <!-- Email input -->
             <div class="form-outline mb-4">
               <label class="form-label" for="form1Example13"
                 >Tên đăng nhập</label
               >
               <input
-                type="email"
+                type="text"
                 id="form1Example13"
                 class="form-control form-control-lg"
                 placeholder="Tên đăng nhập"
@@ -52,7 +52,7 @@
 
             <!-- Submit button -->
             <div class="d-flex justify-content-evenly">
-              <button class="btn btn-primary btn-lg" @click="login">
+              <button class="btn btn-primary btn-lg" >
                 Đăng nhập
               </button>
               <nuxt-link to="/signup"
@@ -69,8 +69,7 @@
 </template>
 <script>
 export default {
-  created () {
-  },
+
   data() {
     return {
       login_info: {
@@ -96,7 +95,7 @@ export default {
           this.$toast.error(user.data.msg_error);
         }
       } catch (error) {
-        console.log("error: ", error);
+        this.$toast.error('Đăng nhập thất bại');
       }
     },
   },
